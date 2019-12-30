@@ -1,101 +1,119 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 
-double numbers2[] = {1.23, 5.32, 6.55, -9, 8.1, -7.223, 12.3, -3};
-//double numbers2[] = {1, 2, -3, 1};
-
-int length = sizeof(numbers2) / sizeof(double);
-void bai01(){
-	float numbers[4];
-	int i = 0;
-	for(i = 0; i <=3; i++) {
-		//nhap tung numnber
-		printf("enter a number : "); scanf("%f", &numbers[i]);
-	}
-	printf("%lf", numbers2[1]);
-	//in ra man hinh cac so da nhap
-	for(i = 0; i <=3; i++) {
-		printf("number[%d] = %.2f", i, numbers[i]);
+void showDetailArray(const double *y, const int n) {
+	//In ra xem chua chua	
+	int i;
+	for(i = 0; i < n; i++){
+		printf("\nPhan tu thu %d la: %0.2lf", i+1, *(y+i));		
 	}
 }
 
-void bai02() {
-	int numbers[] = {2, 5, 6, 9, 8, 7,12, 3};
-	int length = sizeof(numbers) / sizeof(int);
+void swap(double *a, double *b) {
+	double temp = *a;
+	*a = *b;
+	*b = temp;				
+}
+int findNumber(double x, double *numbers, int n) {
 	int i;
-	printf("array's size = %d", length);
-	int numbersOfEven = 0;
-	for(i = 0; i < length; i++){				
-		if(numbers[i] % 2 == 0) {
-			printf("\n%d", numbers[i]);
-			numbersOfEven = numbersOfEven + 1;
+	for(i = 0; i< n; i++){
+		if(*(numbers +i) == x) {
+			return i;
+		}
+	}
+	return -1;
+}
+
+int* findSomeNumbers(double x, double *numbers, int n) {
+	int i, numberOfFoundNumbers;
+	int *result;
+	for(i = 0; i< n; i++){
+		if(*(numbers +i) == x) {
+			numberOfFoundNumbers++;					
+		}
+	}
+	result = (int *) malloc(sizeof(int) * numberOfFoundNumbers);
+	int j = 0;
+	for(i = 0; i< n; i++){
+		if(*(numbers +i) == x) {
+			*(result + j) = i;
+			j++;			
+		}
+	}	
+	return result;
+}
+void sortAnArray(double *y, const int n, char choice) {
+	int i, j;
+	for(i = 0; i < n-1; i++){
+		for(j = i + 1; j < n; j++){
+			bool check = (choice == 't') ? (*(y + i) > *(y + j)) : (*(y + i) < *(y + j));
+			if(check){
+				swap(y + i, y + j);			
+			}
 		}		
 	}
-	printf("\nNumbers of evens = %d", numbersOfEven);
 }
-
-
-
-void bai03() {	
-	
+void doSomething() {
+	char choice;
+	int *someNumbers;
+	someNumbers = (int *)malloc(sizeof(int) * 20);
 	int i = 0;
-	while(i < length) {
-		if(numbers2[i] < 0.0) {
-			printf("Phan tu thu %d la so am, gia tri la: %.3f \n", i, numbers2[i]);
-		}
+	do {
+		int* ptr = someNumbers+i;
+		printf("ptr = %p", ptr);
+		ptr = (int *)malloc(sizeof(int));
+		printf("Nhap 1 so nguyen : \n"); scanf("%d", ptr);
+		printf("\n data = %d", *ptr);
 		i++;
+		printf("continue(y or n) ? "); 
+		fflush(stdin);
+		choice = getchar();
+	} while(choice == 'y');
+	printf("thoi ko choi nua");
+	printf("ptr = %p, data = %d", someNumbers, *someNumbers);
+	printf("ptr = %p, data = %d", someNumbers, *(someNumbers+1));
+	/*
+	int j;
+	for(j = 0; j < i; j++) {
+		printf("\nPhan tu thu %d la: %0.2lf", j, *(someNumbers+j));		
 	}
+	*/
 }
-void bai04() {
-	double max = numbers2[0];	
-	double min = numbers2[0];	
-	int i;
-	for(i = 1; i < length; i++){
-		if(numbers2[i] > max) {
-			max = numbers2[i];
-		}
-		if(numbers2[i] < min) {
-			min = numbers2[i];
-		}
+
+int main(int argc, char *argv[]) {
+	/*
+	double *numbers;
+	int n, i, j;
+	printf("Enter number of float: "); scanf("%d", &n);
+	numbers = (double *)malloc(sizeof(double) * n);
+	for(i = 0; i < n; i++){
+		printf("\nPhan tu thu %d la: ", i+1);
+		scanf("%lf", numbers+i);
 	}
-	printf("max = %lf, min = %lf", max, min);
-}
-void bai05(){
-	//tim sum
-	double sum = 0.0;
-	int i;
-	for(i = 0; i < length; i++){
-		//sum = sum + numbers2[i];		
-		sum += numbers2[i];
-	}	
-	printf("Tong gia tri = %0.3lf", sum);
-}
-void bai06() {
-	//tim sum
-	double sum = 0.0;
-	int i;
-	for(i = 0; i < length; i++){
-		//sum = sum + numbers2[i];		
-		if(numbers2[i] > 0.0){
-			sum += numbers2[i];
-		}
-	}	
-	printf("Tong gia tri duong = %0.3lf", sum);
-}
-void bai07(){
-	float x;
-	x = (float)5 / (float)2; //casting
-	printf("x = %.3f", x);
-}
-int main(int argc, char *argv[]) {	
-	//bai01();
-	//bai02();
-	//bai03();
-	//bai04();
-	//bai05();
-	//bai06();
-	bai07();
+	*/
+	/*
+	showDetailArray(numbers, n);
+	sortAnArray(numbers, n, 't');
+	printf("\nsau khi sap xep \n");
+	showDetailArray(numbers, n);
+	double x;
+	printf("\nBan can tim so may ? "); scanf("%lf", &x);
+	int foundIndex = findNumber(x, numbers, n);
+	if(foundIndex > 0) {
+		printf("Vi tri so can tim : %d", foundIndex);	
+	} else {
+		printf("ko tim thay so %0.2lf", x);
+	}
+	*/
+	/*
+	int *foundNumbers;
+	foundNumbers = findSomeNumbers(2.00, numbers, n);
+	printf("%d\n", *foundNumbers);	
+	printf("%d\n", *(foundNumbers+1));	
+	*/
+	doSomething();
 	return 0;
 }
