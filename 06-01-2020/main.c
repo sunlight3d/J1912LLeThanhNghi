@@ -7,6 +7,7 @@ struct Employee {
 	int working_days;
 	float daily_salary;	
 };
+
 void testEmployee() {
 	struct Employee* mrHoang = malloc(sizeof(struct Employee));
 	strcpy(mrHoang->name, "Hoang"); //strcpy = string copy
@@ -27,8 +28,35 @@ void testPoint() {
 	p1.y = 2;
 	printf("Detail p1: x = %0.2f, y = %0.2f\n", p1.x, p1.y);
 }
-void input() {
-	printf("Day la ham input\n");
+void input(struct Employee* employees, int N) {
+	
+    int i;
+    for(i = 0; i < N; i++){
+    	printf("Nhap nhan vien thu %d : \n", i+1);
+        printf("Enter id: "); 
+        fflush(stdin);
+        gets((employees+i)->id);
+        printf("Enter name: "); 
+        fflush(stdin);
+        gets((employees+i)->name);
+        do {
+        	printf("Enter working days: "); scanf("%d", &((employees+i)->working_days));
+		}while((employees+i)->working_days < 1 || (employees+i)->working_days > 31);
+        do {
+        	printf("Enter daily salary: "); scanf("%f", &((employees+i)->daily_salary));
+		}while((employees+i)->daily_salary < 10 || (employees+i)->daily_salary > 100);
+        
+    }
+    printEmployees(employees, N);
+}
+void printEmployees(struct Employee* employees, int N) {
+    int i;
+    for(i = 0; i < N; i++){
+        printf("id: %s\n", (employees+i)->id);
+        printf("name: %s\n", (employees+i)->name);
+        printf("working_days: %d", (employees+i)->working_days);
+        printf("daily salary: %.2f", (employees+i)->daily_salary);
+    }
 }
 void sort() {
 	printf("Day la ham sort\n");
@@ -49,6 +77,8 @@ void open() {
 int main(int argc, char * argv[]) {
     //testEmployee();
     //testPoint();
+    struct Employee* employees;
+    int N;
     char choice;    
     do {
     	printf("+----------------------------------------------------------------------+\n");
@@ -60,7 +90,9 @@ int main(int argc, char * argv[]) {
     	choice = getchar();
         switch (choice) {
         case '1':
-            input();
+            printf("Number of employees : "); scanf("%d", &N);
+            employees = malloc(sizeof(struct Employee) * N);
+            input(employees, N);
             break;
         case '2':
             sort();
