@@ -23,15 +23,9 @@ public class Book extends Product{
         super(code, name, description, producer, price);
         this.numberOfPages = numberOfPages;
     }
+    public Book() {}
     public void inputBook() {
-        System.out.println("Code : ");
-        this.setCode(Menu.getScanner().nextLine());
-        System.out.println("Enter description : ");
-        this.setDescription(Menu.getScanner().nextLine());
-        System.out.println("Enter producer: ");
-        this.setProducer(Menu.getScanner().nextLine());
-        System.out.println("Enter price: ");
-        this.setPrice(Menu.getScanner().nextDouble());
+        super.input();
         System.out.println("Enter number of pages: ");
         this.setNumberOfPages(Menu.getScanner().nextInt());
     }
