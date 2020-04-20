@@ -8,10 +8,6 @@ public class Book {
     private static Book[] books = {};//Cap phat 1 mang rong
     private static Book[] filteredBooks = {};//Cap phat 1 mang rong
     private static Stream<Book> streamBooks = Stream.of(new Book[]{});
-    public static Supplier<Stream<Book>> streamSupplierBooks = () ->  {
-        System.out.println("eke");
-        return Stream.of(books);
-    };
 
     public Book(String name, String description, Integer year) {
         this.name = name;
@@ -65,28 +61,6 @@ public class Book {
         System.out.println("haha");
         //Ket luan: stream sinh ra de thao tac, tinh toan,...
         //books va filteredBooks de luu tru
-    }
-    public static void deleteBooks() {
-        //ket qua cua filter luon luon doc lap voi Stream ban dau
-        //VD: app contact tren iphone
-        streamBooks = Stream.of(books);
-        //.toArray(Book[]::new) => convert ngược lại thành array
-        //lat nữa mình sẽ thử dùng StreamSupplier để ko phải convert ngược lại nữa
-        books = streamBooks.filter(book -> !book.getName().equalsIgnoreCase("C++")).toArray(Book[]::new);
-        System.out.println("haha");
-        //Ket luan: stream sinh ra de thao tac, tinh toan,...
-        //books va filteredBooks de luu tru
-    }
-    //Mình sẽ viết 1 hàm deleteBooks mà sử dụng StreamSupplier
-    public static void deleteBooksUsingStreamSupplier() {
-        books = streamSupplierBooks.get()
-                .filter(book -> {return !book.getName().equalsIgnoreCase("C++");})
-                .toArray(Book[]::new);;
-        System.out.println("kakaka");
-    }
-    public static void doSomething(){
-        System.out.println("kekeke");
-        books = streamSupplierBooks.get().toArray(Book[]::new);
     }
     public static void updateBook() {
         //ko can dung stream ??

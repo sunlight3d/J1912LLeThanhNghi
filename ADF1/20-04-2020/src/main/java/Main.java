@@ -4,10 +4,7 @@ public class Main {
         //Tai sao dung stream, de thao tac tren array cho thuan tien
         //Bat: minh se viet cac thao tac them, bot, sua, xoa du lieu(object) trong 1 array, tan dung Stream
         Book.insertBooks();
-//        Book.filterBooks();
-//        Book.updateBook();
-//        Book.deleteBooks();
-//        Book.deleteBooksUsingStreamSupplier();
-        Book.doSomething();
+        Book.filterBooks();
+        Book.updateBook();
     }
 }
