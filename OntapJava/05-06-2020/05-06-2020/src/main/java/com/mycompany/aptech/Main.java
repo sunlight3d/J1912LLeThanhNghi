@@ -15,9 +15,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         MainStage mainStage = new MainStage();
-        mainStage.initComponents();
         mainStage.show();
-
     }
 
     public static void main(String[] args) {
